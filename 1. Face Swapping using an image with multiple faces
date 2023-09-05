@@ -16,6 +16,7 @@ app = FaceAnalysis(name = 'buffalo_l') #This include the trained detection model
 app.prepare(ctx_id=0, det_size=(640, 640))
 img = ins_get_image('t1')   #The code uses the ins_get_image function from InsightFace to load an image. 
 #You can replace the image path 't1' with the path to any image you want to use for face swapping. e.g. img = ins_get_image('path_to_your_image.jpg')
+
 #Plot the original image
 plt.imshow(img[:,:,::-1])
 plt.show()
