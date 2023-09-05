@@ -1,0 +1,62 @@
+import cv2
+import numpy as np
+import os
+import glob
+import matplotlib.pyplot as plt 
+
+import insightface
+from insightface.app import FaceAnalysis
+from insightface.data import get_image as ins_get_image
+
+# print('insightface', insightface.__version__)
+# print('numpy', np.__version__)
+
+#STEP 1 : FACE DETECTION
+app = FaceAnalysis(name = 'buffalo_l') #This include the trained detection model found on https://github.com/deepinsight/insightface/tree/master/python-package
+app.prepare(ctx_id=0, det_size=(640, 640))
+img = ins_get_image('t1')   #The code uses the ins_get_image function from InsightFace to load an image. 
+#You can replace the image path 't1' with the path to any image you want to use for face swapping. e.g. img = ins_get_image('path_to_your_image.jpg')
+#Plot the original image
+plt.imshow(img[:,:,::-1])
+plt.show()
+
+faces = app.get(img)
+rimg = app.draw_on(img, faces) # used for drawing bounding boxes around detected faces in the input image  
+cv2.imwrite("./t1_output.jpg", rimg) #saving the annotated(gender, age) image as "t1_output.jpg 
+#print(len(faces)) #should get 6 for 6 faces
+
+#CROP AND PLOT FACES
+img = ins_get_image('t1')
+fig, axs = plt.subplots(1, 6, figsize=(12,5))
+
+for i, face in enumerate(faces):
+    bbox = face['bbox']
+    bbox = [int(b) for b in bbox]
+    axs[i].imshow(img[bbox[1]:bbox[3],bbox[0]:bbox[2],::-1])
+    axs[i].axis('off')
+
+plt.show()
+
+#STEP 2: FACE SWAPPING
+swapper = insightface.model_zoo.get_model(r'C:\Users\rshwa\Desktop\CodingProjects\Face Swapper\inswapper_128.onnx', download=False, download_zip=False)
+
+#Select the face to swap with 
+source_face = faces[1]
+bbox = source_face['bbox'] #It extracts the value associated with the key 'bbox' from the source_face dictionary and assigns it to the variable bbox. This likely represents the bounding box coordinates of the detected face.
+bbox = [int(b) for b in bbox] #This line converts the bounding box coordinates (which are typically stored as floats or strings) to integers.
+# It uses a list comprehension to iterate through each element in bbox and converts them to integers. 
+#The resulting bbox variable will contain integer values representing the bounding box coordinates.
+plt.imshow(img[bbox[1]:bbox[3],bbox[0]:bbox[2],::-1]) #This line uses the Matplotlib library to display an image. It takes a specific region of the img (image) based on the bounding box coordinates stored in bbox.
+#bbox[1]:bbox[3] represents the vertical range (y-coordinates) of the bounding box.
+#bbox[0]:bbox[2] represents the horizontal range (x-coordinates) of the bounding box.
+#::-1 is used to reverse the color channels of the image data because Matplotlib expects RGB format (red-green-blue) while OpenCV typically uses BGR format (blue-green-red). 
+# Reversing the channels converts it from BGR to RGB.
+plt.show()
+
+res = img.copy() #creates a copy of the original image
+for face in faces:
+    res = swapper.get(res, face, source_face, paste_back=True)
+
+#PLOT SWAPPED FACES
+plt.imshow(res[:,:,::-1])
+plt.show()
