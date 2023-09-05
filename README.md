@@ -18,3 +18,6 @@ The code accomplishes:
     - The result of the face swapping is stored in the 'res' variable.
 4. **Displaying the Swapped Faces**:
     - The code displays the image with the swapped faces, allowing you to see the modified image with the swapped facial features.
+
+
+The code effectively demonstrates how to use the InsightFace library for face detection and swapping in Python, providing an entertaining and illustrative example of face manipulation with deep learning models.
