@@ -31,7 +31,7 @@ def allowed_file(filename):
 
 @app.route('/')
 def index():
-    return render_template('index.html', swapped_image='', error_msg='')
+    return render_template('index.html', swapped_image=None, error_msg=None)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -69,3 +69,4 @@ def upload_file():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
