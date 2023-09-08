@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <title>Face Swapper!</title>
+    <style>
+        .error-message {
+            color: red; /* Set the text color to red */
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Face Swapper</h1>
+        <p class="bold-italic-text">Submit an image featuring exactly 2 faces and initiate a swap to witness the visual transformation!</p>
+        {% if error_msg %}
+        <div class="error-message">
+            {{ error_msg | replace("gif", "") }} <!-- Remove "gif" from the error message -->
+        </div>
+        {% endif %}
+        <form method="POST" enctype="multipart/form-data" action="/upload">
+            <!-- Add the input element for file upload -->
+            <input type="file" id="fileInput" name="file">
+            <label for="fileInput" class="upload-button">Choose Image</label>
+            <input type="submit" value="Upload">
+        </form>
+        <p id="fileUploadedText" class="file-uploaded-text"></p>
+
+        <!-- Display a message for uploaded file -->
+        <div id="fileUploadedMessage" style="display: none;">
+            <p>File Uploaded:</p>
+            <p id="uploadedFileName"></p>
+        </div>
+        
+        {% if swapped_image %}
+            <h2>Swapped Image:</h2>
+            <img src="data:image/jpeg;base64, {{ swapped_image }}" alt="Swapped Face">
+            <script>
+        // JavaScript to change container height to 90px
+                document.querySelector('.container').style.height = '650px';
+            </script>
+        {% endif %}
+
+        <!-- Add the designed by text -->
+        <p class="designed-by">Designed by rshwati</p>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const fileUploadedMessage = document.getElementById('fileUploadedMessage');
+        const uploadedFileName = document.getElementById('uploadedFileName');
+        const errorMessage = document.querySelector('.error-message'); // Select the error message
+
+        fileInput.addEventListener('change', (event) => {
+            const fileName = event.target.files[0].name;
+            uploadedFileName.textContent = fileName;
+            fileUploadedMessage.style.display = 'block';
+            errorMessage.style.display = 'none'; // Hide the error message when a new file is selected
+        });
+    </script>
+</body>
+</html>

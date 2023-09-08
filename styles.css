@@ -1,0 +1,111 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #252525;
+    margin: 90;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh; /* Center the content vertically and horizontally */
+    min-height: 100vh; /* Use min-height to ensure the page fills the viewport vertically */
+
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto 10px;
+    padding: 30px;
+    width: 400px;
+    background: linear-gradient(135deg, #ffffff, #894444); /* Ombre background color */
+    background-color: #ffffff;
+    border-radius: 100px;
+    box-shadow: 0 2px 4px rgba(243, 238, 238, 0.1);
+    text-align: center; /* Center the content within the container */
+    height: 60vh;
+    overflow-y: scroll; /* Add overflow-y property for vertical scrollbar */
+}
+
+h1 {
+    color: #333;
+    font-family: 'Pacifico', cursive; /* Apply the 'Pacifico' font */
+    font-size: 50px; /* Adjust the font size as needed */
+}
+
+form {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* Style the file input */
+input[type="file"] {
+    display: none;
+}
+
+/* Style the "Choose Image" button */
+label {
+    display: block;
+    background-color: #007bff;
+    width: 200px;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin: 0 auto 10px; /* Center the button horizontally and add margin at the bottom */
+}
+
+label:hover {
+    background-color: #0056b3;
+}
+
+/* Style the "Upload" button */
+input[type="submit"] {
+    background-color: #20ab2e;
+    width: 230px; /* Adjust the width to match the "Choose Image" button */
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Style the "Upload" button on hover */
+input[type="submit"]:hover {
+    background-color: #38ff4c;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+/* Add a class for bold italic text */
+.bold-italic-text {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.file-uploaded-text {
+    color: #333;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.designed-by {
+    font-size: 12px; /* Adjust the font size as needed */
+    font-style: italic;
+    margin-top: 10px;
+    color: #000000; 
+    text-align: center;
+}
+
+
+/* Hide scrollbar for webkit (Chrome, Safari, Edge) */
+.container::-webkit-scrollbar {
+    width: 0.1em;
+}
