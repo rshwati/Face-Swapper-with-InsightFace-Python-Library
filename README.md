@@ -3,7 +3,7 @@
 **Face Swapper Website**
 
 _About:_
-This project was created as a fun and educational experiment in web development. It leverages cutting-edge face detection and image processing technologies to bring you a seamless face-swapping experience. Whether you want to exchange faces with your friends, favorite celebrities, or even historical figures, this website makes it easy and enjoyable._
+This project was created as a fun and educational experiment in web development. It leverages cutting-edge face detection and image processing technologies to bring you a seamless face-swapping experience. Whether you want to exchange faces with your friends, favorite celebrities, or even historical figures, this website makes it easy and enjoyable.
 
 
 Python script using InsightFace library for face detection, cropping, and swapping features, creating fun face-swapped images.
