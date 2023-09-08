@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+
 
     <title>Face Swapper!</title>
     <style>
@@ -19,11 +20,13 @@
     <div class="container">
         <h1>Face Swapper</h1>
         <p class="bold-italic-text">Submit an image featuring exactly 2 faces and initiate a swap to witness the visual transformation!</p>
-        {% if error_msg %}
-        <div class="error-message">
-            {{ error_msg | replace("gif", "") }} <!-- Remove "gif" from the error message -->
+        <div id="errorMessageContainer">
+            {% if error_msg %}
+                <div class="error-message">
+                    {{ error_msg | replace("gif", "") }}
+                </div>
+            {% endif %}
         </div>
-        {% endif %}
         <form method="POST" enctype="multipart/form-data" action="/upload">
             <!-- Add the input element for file upload -->
             <input type="file" id="fileInput" name="file">
@@ -37,15 +40,16 @@
             <p>File Uploaded:</p>
             <p id="uploadedFileName"></p>
         </div>
-        
-        {% if swapped_image %}
-            <h2>Swapped Image:</h2>
-            <img src="data:image/jpeg;base64, {{ swapped_image }}" alt="Swapped Face">
-            <script>
-        // JavaScript to change container height to 90px
-                document.querySelector('.container').style.height = '650px';
-            </script>
-        {% endif %}
+        <div id="swappedImageContainer">    
+            {% if swapped_image %}
+                <h2>Swapped Image:</h2>
+                <img src="data:image/jpeg;base64, {{ swapped_image }}" alt="Swapped Face">
+                <script>
+            // JavaScript to change container height to 90px
+                    document.querySelector('.container').style.height = '650px';
+                </script>
+            {% endif %}
+        </div>
 
         <!-- Add the designed by text -->
         <p class="designed-by">Designed by rshwati</p>
@@ -64,5 +68,22 @@
             errorMessage.style.display = 'none'; // Hide the error message when a new file is selected
         });
     </script>
+
+    <script>
+    // JavaScript to hide error message and swapped image containers on page load
+    window.onload = function () {
+        var errorMessageContainer = document.getElementById('errorMessageContainer');
+        var swappedImageContainer = document.getElementById('swappedImageContainer');
+
+        if (errorMessageContainer) {
+            errorMessageContainer.style.display = 'none';
+        }
+
+        if (swappedImageContainer) {
+            swappedImageContainer.style.display = 'none';
+        }
+    };
+    </script>
+
 </body>
 </html>
